@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DrawAnalysisVectors.cs" />
     <Compile Include="Assets\OneBehaviourScript.cs" />
     <Compile Include="Assets\Spring.cs" />
     <Compile Include="Assets\TwoBehaviourScript.cs" />

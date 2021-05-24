@@ -13,7 +13,7 @@ public class TwoBehaviourScript : MonoBehaviour
             // cling to other body and disable collision
             FixedJoint joint = this.gameObject.AddComponent<FixedJoint>() as FixedJoint;
             joint.connectedBody = collision.collider.attachedRigidbody;
-            joint.enableCollision = false;
+            // joint.enableCollision = false;
 
             Debug.DrawRay(joint.anchor, Vector3.up * joint.massScale, Color.cyan);
 
@@ -21,8 +21,6 @@ public class TwoBehaviourScript : MonoBehaviour
             //this.GetComponent<Rigidbody>().ResetCenterOfMass();
             //joint.connectedBody.ResetCenterOfMass();
         }
-        
-        if (collision.relativeVelocity.magnitude > 2) { }
     }
 
 

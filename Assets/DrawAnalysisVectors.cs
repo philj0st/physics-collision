@@ -9,7 +9,7 @@ public class DrawAnalysisVectors : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Start() 
     {
         rigidbodies = new List<Rigidbody>();
         foreach (GameObject obj in objects)
@@ -23,6 +23,7 @@ public class DrawAnalysisVectors : MonoBehaviour
         // draw center of mass
         Vector3 centerOfMass = new Vector3();
         Vector3 totalMomentum = new Vector3();
+        Vector3 totalAngMom = new Vector3();
 
         float sumOfMasses = 0;
         foreach (Rigidbody rb in rigidbodies)
@@ -42,19 +43,21 @@ public class DrawAnalysisVectors : MonoBehaviour
             // momentum of the body
             Vector3 momentum = rb.velocity * rb.mass;
 
-            //scale down by mass to see the vector
-            Debug.DrawRay(rb.position + new Vector3(0, 0.5f, 0), momentum / rb.mass, new Color(rb.position.x % 255, (255 - rb.position.x) % 255, (255 / 2 + rb.position.x) % 255));
+            // scale down by mass to see the vector
+            Color funky = new Color((rb.position.x % 255) / 255, ((255 - rb.position.x) % 255) / 255, ((255 / 2 + rb.position.x) % 255) / 255);
+            Debug.DrawRay(rb.worldCenterOfMass, momentum / rb.mass, funky);
             
             // draw angular momentum
             // cross product from COM to body with momentum
             Vector3 angMom = Vector3.Cross((rb.position - centerOfMass), momentum);
-            
+            Debug.DrawRay(rb.worldCenterOfMass, angMom/rb.mass, Color.yellow);
+            totalAngMom += angMom;
         }
 
-        
-        Debug.DrawRay(centerOfMass, Vector3.up, Color.red,5f,true);
+        // draw total angular momentum
+        Debug.DrawRay(centerOfMass, totalAngMom/sumOfMasses, Color.red,0,false);
 
         // draw momentum
-        Debug.DrawRay(centerOfMass, totalMomentum/sumOfMasses, Color.green, 0.1f, true);
+        Debug.DrawRay(centerOfMass, totalMomentum/sumOfMasses, Color.green, 0.1f, false);
     }
 }
