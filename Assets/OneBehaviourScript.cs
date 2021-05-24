@@ -18,12 +18,6 @@ public class OneBehaviourScript : MonoBehaviour
         initAccForce = Vector3.right * initAcc * rigidBody.mass;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void FixedUpdate()
     {
         // once desired speed is reached stop accelerating

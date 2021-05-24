@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class TwoBehaviourScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     void OnCollisionEnter(Collision collision)
     {
         
@@ -20,8 +15,11 @@ public class TwoBehaviourScript : MonoBehaviour
             joint.connectedBody = collision.collider.attachedRigidbody;
             joint.enableCollision = false;
 
-            this.GetComponent<Rigidbody>().ResetCenterOfMass();
-            joint.connectedBody.ResetCenterOfMass();
+            Debug.DrawRay(joint.anchor, Vector3.up * joint.massScale, Color.cyan);
+
+            // maybe unnessecary
+            //this.GetComponent<Rigidbody>().ResetCenterOfMass();
+            //joint.connectedBody.ResetCenterOfMass();
         }
         
         if (collision.relativeVelocity.magnitude > 2) { }
@@ -31,6 +29,6 @@ public class TwoBehaviourScript : MonoBehaviour
     private void FixedUpdate()
     {
         Rigidbody rb = this.GetComponent<Rigidbody>();
-        Debug.DrawRay(rb.worldCenterOfMass,Vector3.up* this.GetComponent<Rigidbody>().mass, Color.cyan);
+        //Debug.DrawRay(rb.worldCenterOfMass,Vector3.up* this.GetComponent<Rigidbody>().mass/1000, Color.cyan);
     }
 }
