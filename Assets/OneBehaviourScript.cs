@@ -26,7 +26,7 @@ public class OneBehaviourScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        // exit barrel once desired speed is reached
+        // once desired speed is reached stop accelerating
         if (rigidBody.velocity.magnitude > initialSpeed) isAccelerating = false;
 
         if (isAccelerating)

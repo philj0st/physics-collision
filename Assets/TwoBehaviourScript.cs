@@ -11,23 +11,26 @@ public class TwoBehaviourScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        foreach (ContactPoint contact in collision.contacts)
+        
+        //if we're not colliding with the Plane
+        if (collision.collider.CompareTag("Three"))
         {
-            //if we're not colliding with the Plane
-            if (contact.otherCollider.CompareTag("Three"))
-            {
-                
-                FixedJoint joint = gameObject.AddComponent<FixedJoint>() as FixedJoint;
-                joint.connectedBody = contact.otherCollider.attachedRigidbody;
-                joint.enableCollision = false;
-            }
+            // cling to other body and disable collision
+            FixedJoint joint = this.gameObject.AddComponent<FixedJoint>() as FixedJoint;
+            joint.connectedBody = collision.collider.attachedRigidbody;
+            joint.enableCollision = false;
+
+            this.GetComponent<Rigidbody>().ResetCenterOfMass();
+            joint.connectedBody.ResetCenterOfMass();
         }
+        
         if (collision.relativeVelocity.magnitude > 2) { }
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void FixedUpdate()
     {
-        
+        Rigidbody rb = this.GetComponent<Rigidbody>();
+        Debug.DrawRay(rb.worldCenterOfMass,Vector3.up* this.GetComponent<Rigidbody>().mass, Color.cyan);
     }
 }
